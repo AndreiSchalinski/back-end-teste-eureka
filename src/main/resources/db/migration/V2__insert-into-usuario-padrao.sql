@@ -1,3 +1,3 @@
 insert into usuario (id, nome, email, password)
 values (1, 'Admin', 'admin@hotmail.com',
-        '$2y$12$oRRbkNfwuR8ug4MlzH5FOeui.//1mkd.RsOAJMbykTSupVy.x/vb2');
+        '$2a$12$7afp0JgBkzZ6Uoy2eo4nte7Gqk/hG3UXogg/JmJs/Q/2FKJZf6cZm');
