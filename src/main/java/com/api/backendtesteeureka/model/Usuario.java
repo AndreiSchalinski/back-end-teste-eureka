@@ -24,6 +24,10 @@ public class Usuario {
 
     private String email;
 
+    private String cargo;
+
+    private String telefone;
+
     @JsonIgnore
     private String password;
 
@@ -36,6 +40,8 @@ public class Usuario {
         this.id = usuarioDTO.id();
         this.nome = usuarioDTO.nome();
         this.email = usuarioDTO.email();
+        this.cargo = usuarioDTO.cargo();
+        this.telefone = usuarioDTO.telefone();
         this.password = usuarioDTO.password();
     }
 
