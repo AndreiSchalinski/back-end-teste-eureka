@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "Usuario")
 @Table(name = "usuario")
@@ -24,19 +26,33 @@ public class Usuario {
 
     private String email;
 
+    private String telefone;
+
+    private String cargo;
+
+    private String username;
+
     @JsonIgnore
     private String password;
 
-    private String token;
+    private Long role;
 
-    @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime token_creation_date;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(  name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     public Usuario(UsuarioDTO usuarioDTO) {
         this.id = usuarioDTO.id();
         this.nome = usuarioDTO.nome();
         this.email = usuarioDTO.email();
+        this.cargo = usuarioDTO.cargo();
+        this.telefone = usuarioDTO.telefone();
+        this.username = usuarioDTO.username();
         this.password = usuarioDTO.password();
+        this.role = usuarioDTO.role();
+        this.roles = usuarioDTO.roles();
     }
 
 

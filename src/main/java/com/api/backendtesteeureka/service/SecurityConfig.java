@@ -70,11 +70,7 @@ public class SecurityConfig { // extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/api/auth/**").permitAll()
-                                .requestMatchers("/admin/panel").hasAuthority("ROLE_ADMIN")
-                                .requestMatchers("/admin/consultar").hasAuthority("ROLE_ADMIN")
-                                .requestMatchers("/admin/avaliar").hasAuthority("ROLE_ADMIN")
-                                .requestMatchers("/admin/usuario/lista").hasAuthority("ROLE_ADMIN")
-                                .requestMatchers("/admin/usuario/novo").hasAuthority("ROLE_ADMIN")
+                                .requestMatchers("/usuario/**").hasAnyAuthority("ROLE_ADMIN")
                                 .anyRequest().authenticated()
                 );
 

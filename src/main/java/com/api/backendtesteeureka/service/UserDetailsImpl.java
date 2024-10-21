@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.api.backendtesteeureka.model.Usuario;
 import lombok.Getter;
@@ -25,25 +26,30 @@ public class UserDetailsImpl implements UserDetails {
 
     private String email;
 
+    private String username;
+
     @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String email, String password,
+    public UserDetailsImpl(Long id, String username, String email, String password,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
-        this.nome = nome;
+        this.username = username;
         this.password = password;
         this.authorities = authorities;
     }
 
     public static UserDetailsImpl build(Usuario usuario) {
-        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        List<GrantedAuthority> authorities = usuario.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getNome().name()))
+                .collect(Collectors.toList());
 
         return new UserDetailsImpl(
                 usuario.getId(),
+                usuario.getUsername(),
                 usuario.getEmail(),
                 usuario.getPassword(),
                 authorities);
@@ -56,7 +62,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        return username;
     }
 
     @Override
